@@ -39,7 +39,6 @@ module.exports = makeExecutableSchema({
       },
     },
     Review: {
-      // product: (review) => ({ upc: review.productUpc }),
       user: (review) => ({ id: review.userId }),
     },
     User: {
@@ -62,13 +61,11 @@ module.exports = makeExecutableSchema({
         const decoResult = decorators.find(m => m.txId === id) || null;
         console.log('single', id, decoResult)
         return decoResult;
-        // ids.map(id => decorators.find(m => m.txId === id) || null);
       },
       transactionDecoratorsByIds: (root, {ids}) => {
         const decoResult = ids.map(id => decorators.find(m => m.txId === id) || null);
         console.log('transactionDecoratorsByIds', ids, decoResult)
         return decoResult;
-        // ids.map(id => decorators.find(m => m.txId === id) || null);
       },
       categoryDecoratorsByIds: (root, {ids}) => {
         console.log('ex')
