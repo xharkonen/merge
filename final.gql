@@ -1,0 +1,110 @@
+type Query {
+  users(ids: [ID!]!): [User]!
+  account(id: ID!): Account
+  transaction(id: ID!): Transaction!
+  transactions(ids: [ID!]!, first: Int! = 2, after: String): TransactionConnection!
+  reviews(ids: [ID!]!): [Review]!
+  _users(ids: [ID!]!): [User]!
+  _transactions(ids: [ID!]!): [Transaction]!
+  demoTypesByIds(ids: [ID!]!): [DemoType]!
+  categoryDecoratorsByIds(ids: [ID!]!): [CategoryDecorator]!
+  documentDecoratorsByIds(ids: [ID!]!): [DocumentDecorator]!
+  transactionDecoratorsById(id: ID!): TransactionDecorator
+  transactionDecoratorsByIds(ids: [ID!]!): [TransactionDecorator]!
+  _decorators(ids: [ID!]!): [TransactionDecorator]!
+  node(id: ID!): Node
+}
+
+type Account {
+  id: ID!
+  name: String!
+  transactions(first: Int! = 2, after: String): TransactionConnection
+}
+
+interface Transaction {
+  id: ID!
+  reference: String!
+  accountId: String!
+  demoTypes: [DemoType]!
+  decorators: [TransactionDecorator]!
+}
+
+type TransactionConnection implements Connection {
+  totalCount: Int!
+  edges: [TransactionEdge]!
+}
+
+type TransactionEdge implements Edge {
+  node: Transaction!
+  cursor: String!
+}
+
+type CardTransaction implements Transaction {
+  id: ID!
+  accountId: String!
+  reference: String!
+  decorators: [TransactionDecorator]!
+  demoTypes: [DemoType]!
+}
+
+type SEPACreditTransferTransaction implements Transaction {
+  id: ID!
+  accountId: String!
+  reference: String!
+  decorators: [TransactionDecorator]!
+  demoTypes: [DemoType]!
+}
+
+interface Edge {
+  cursor: String!
+}
+
+interface Connection {
+  totalCount: Int!
+  edges: [Edge]!
+}
+
+enum DecorationType {
+  CategoryDecorator
+  Document
+}
+
+interface TransactionDecorator {
+  id: ID!
+  decorationKey: String!
+  decorationType: DecorationType!
+}
+
+type CategoryDecorator implements TransactionDecorator {
+  id: ID!
+  decorationKey: String!
+  decorationType: DecorationType!
+}
+
+type DocumentDecorator implements TransactionDecorator {
+  id: ID!
+  decorationKey: String!
+  decorationType: DecorationType!
+}
+
+type DemoType {
+  id: ID!
+  name: String
+}
+
+type User {
+  id: ID!
+  username: String!
+  reviews: [Review]!
+}
+
+type Review {
+  id: ID!
+  body: String!
+  user: User
+  transaction: Transaction
+}
+
+interface Node {
+  id: ID!
+}

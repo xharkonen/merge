@@ -1,0 +1,74 @@
+interface Transaction {
+  id: ID!
+  demoTypes: [DemoType]!
+  decorators: [TransactionDecorator]!
+}
+
+enum DecorationType {
+  CategoryDecorator
+  Document
+}
+
+type CardTransaction implements Transaction {
+  id: ID!
+  decorators: [TransactionDecorator]!
+  demoTypes: [DemoType]!
+}
+type SEPACreditTransferTransaction implements Transaction {
+  id: ID!
+  decorators: [TransactionDecorator]!
+  demoTypes: [DemoType]!
+}
+
+interface TransactionDecorator {
+  id: ID!
+  decorationKey: String!
+  decorationType: DecorationType!
+  #transaction: Transaction!
+}
+
+type CategoryDecorator implements TransactionDecorator {
+  id: ID!
+  decorationKey: String!
+  decorationType: DecorationType!
+  #transaction: Transaction!
+}
+
+type DocumentDecorator implements TransactionDecorator {
+  id: ID!
+  decorationKey: String!
+  decorationType: DecorationType!
+  #transaction: Transaction!
+}
+
+
+type DemoType {
+  id: ID!
+  name: String
+}
+
+type Review {
+  id: ID!
+  body: String!
+  # product: Product
+  user: User
+  transaction: Transaction
+}
+
+type User {
+  id: ID!
+  reviews: [Review]!
+}
+
+type Query {
+  reviews(ids: [ID!]!): [Review]!
+  _users(ids: [ID!]!): [User]!
+  _transactions(ids: [ID!]!): [Transaction]!
+  demoTypesByIds(ids:[ID!]!): [DemoType]!
+  categoryDecoratorsByIds(ids:[ID!]!): [CategoryDecorator]!
+  documentDecoratorsByIds(ids:[ID!]!): [DocumentDecorator]!
+  transactionDecoratorsById(id: ID!): TransactionDecorator
+  transactionDecoratorsByIds(ids:[ID!]!): [TransactionDecorator]!
+  _decorators(ids: [ID!]!): [TransactionDecorator]!
+}
+

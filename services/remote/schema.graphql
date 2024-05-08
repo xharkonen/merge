@@ -1,0 +1,80 @@
+type Account {
+  id: ID!
+  name: String!
+  transactions(
+    first: Int! = 2
+    after: String
+  ): TransactionConnection
+}
+
+interface Transaction {
+  id: ID!
+  reference: String!
+  accountId: String!
+}
+
+type TransactionConnection implements Connection {
+  totalCount: Int!
+  edges: [TransactionEdge]!
+}
+
+type TransactionEdge implements Edge {
+  node: Transaction!
+  cursor: String!
+}
+type CardTransaction implements Transaction {
+  id: ID!
+  accountId: String!
+  reference: String!
+}
+type SEPACreditTransferTransaction implements Transaction {
+  id: ID!
+  accountId: String!
+  reference: String!
+}
+
+interface Edge {
+  cursor: String!
+}
+
+interface Connection {
+  totalCount: Int!
+  edges: [Edge]!
+}
+
+enum DecorationType {
+  CategoryDecorator
+  Document
+}
+
+interface TransactionDecorator {
+  id: ID!
+}
+
+type CategoryDecorator implements TransactionDecorator {
+  id: ID!
+}
+
+type DocumentDecorator implements TransactionDecorator {
+  id: ID!
+}
+
+type DemoType {
+  id: ID!
+}
+
+type User {
+  id: ID!
+  username: String!
+}
+
+type Query {
+  users(ids: [ID!]!): [User]!
+  account(id: ID!): Account
+  transaction(id: ID!): Transaction!
+  transactions(
+    ids: [ID!]!
+    first: Int! = 2
+    after: String
+  ): TransactionConnection!
+}
