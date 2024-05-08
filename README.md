@@ -29,7 +29,7 @@ query {
           accountId
           decorators {
             id
-        	}
+          }
         }
       }
     }
