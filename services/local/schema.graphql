@@ -24,23 +24,19 @@ interface TransactionDecorator {
   id: ID!
   decorationKey: String!
   decorationType: DecorationType!
-  #transaction: Transaction!
 }
 
 type CategoryDecorator implements TransactionDecorator {
   id: ID!
   decorationKey: String!
   decorationType: DecorationType!
-  #transaction: Transaction!
 }
 
 type DocumentDecorator implements TransactionDecorator {
   id: ID!
   decorationKey: String!
   decorationType: DecorationType!
-  #transaction: Transaction!
 }
-
 
 type DemoType {
   id: ID!

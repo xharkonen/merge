@@ -64,6 +64,12 @@ interface Connection {
   edges: [Edge]!
 }
 
+type User {
+  id: ID!
+  username: String!
+  reviews: [Review]!
+}
+
 enum DecorationType {
   CategoryDecorator
   Document
@@ -90,12 +96,6 @@ type DocumentDecorator implements TransactionDecorator {
 type DemoType {
   id: ID!
   name: String
-}
-
-type User {
-  id: ID!
-  username: String!
-  reviews: [Review]!
 }
 
 type Review {

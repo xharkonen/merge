@@ -42,27 +42,6 @@ interface Connection {
   edges: [Edge]!
 }
 
-enum DecorationType {
-  CategoryDecorator
-  Document
-}
-
-interface TransactionDecorator {
-  id: ID!
-}
-
-type CategoryDecorator implements TransactionDecorator {
-  id: ID!
-}
-
-type DocumentDecorator implements TransactionDecorator {
-  id: ID!
-}
-
-type DemoType {
-  id: ID!
-}
-
 type User {
   id: ID!
   username: String!
