@@ -27,8 +27,8 @@ query {
         ...on SEPACreditTransferTransaction {
           id
           accountId
-        	decorators {
-        	  id
+          decorators {
+            id
         	}
         }
       }
